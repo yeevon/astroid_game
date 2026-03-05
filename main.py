@@ -16,6 +16,7 @@ def main():
 
     while True:
         log_state()
+        player.update(dt=dt)
         player.draw(screen=screen)
 
         for event in pygame.event.get():
