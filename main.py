@@ -5,6 +5,11 @@ from logger import log_state
 from constants import SCREEN_WIDTH, SCREEN_HEIGHT
 
 def main():
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+
+    Player.containers = (updatable, drawable)
+
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     
@@ -13,11 +18,16 @@ def main():
     
     player_position = (int(SCREEN_WIDTH / 2), int(SCREEN_HEIGHT / 2))
     player = Player(player_position[0], player_position[1])
+    
 
     while True:
         log_state()
-        player.update(dt=dt)
-        player.draw(screen=screen)
+        updatable.update(dt)
+        
+        for draw in drawable: draw.draw(screen)
+
+        # player.update(dt=dt)
+        # player.draw(screen=screen)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
